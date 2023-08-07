@@ -15,7 +15,7 @@ window.addEventListener('mousemove', (event) => {
 type ContextFunctions = {
   mouseEnter: () => void;
   mouseLeave: () => void;
-  setCoordinates: () => void;
+  setCoordinates: (xCoord: number, yCoord: number) => void;
 };
 
 function MaskHoverItem() {
@@ -25,8 +25,9 @@ function MaskHoverItem() {
   const context = useGsapContext<HTMLDivElement, ContextFunctions>(containerRef);
   const [randomString, setRandomString] = useState<string>(getRandomString(2000));
   const [renderStopped, setRenderStopped] = useState<boolean>(false);
+  const [requestId, setRequestId] = useState<number | undefined>(undefined);
 
-  let requestId: number | undefined = undefined;
+  // let requestId: number | undefined = undefined;
   let scrollValue = { x: 0, y: 0 };
   let rect: DOMRect | undefined = undefined;
   const coordinates = {
@@ -44,15 +45,15 @@ function MaskHoverItem() {
     });
 
     context.add('mouseLeave', () => {
-      // console.log('helloooooooooo');
       gsap.to(decoRef.current, { duration: 0.5, ease: 'power3', opacity: 0 });
     });
 
-    context.add('setCoordinates', () => {
-      // console.log(' set coords');
+    context.add('setCoordinates', (xCoord: number, yCoord: number) => {
+      console.log('previous x ', coordinates['x'].previous);
+      console.log('previous y ', coordinates['y'].previous);
       gsap.set(imgRef.current, {
-        '--x': coordinates['x'].previous,
-        '--y': coordinates['y'].previous,
+        '--x': xCoord,
+        '--y': yCoord,
       });
     });
   }, []);
@@ -69,10 +70,7 @@ function MaskHoverItem() {
   const handleMouseEnter = () => {
     context.mouseEnter?.();
     calculateSizePosition();
-    console.log(renderStopped);
-    if (!renderStopped) {
-      renderAnimation();
-    }
+    loopRender(true);
   };
 
   const handleMouseLeave = () => {
@@ -80,27 +78,22 @@ function MaskHoverItem() {
     context.mouseLeave?.();
   };
 
-  const loopRender = () => {
-    console.log('loop render', renderStopped);
-    if (!requestId && !renderStopped) {
-      requestId = requestAnimationFrame(() => renderAnimation());
+  const loopRender = (isFirstTick = false) => {
+    if (!requestId) {
+      setRequestId(requestAnimationFrame(() => renderAnimation(isFirstTick)));
     }
   };
 
   const stopRender = () => {
     if (requestId) {
       window.cancelAnimationFrame(requestId);
-      requestId = undefined;
+      setRequestId(undefined);
     }
-
-    setRenderStopped(true);
   };
 
-  const renderAnimation = () => {
-    console.log('render anim', renderStopped);
-    if (renderStopped) return;
+  const renderAnimation = (isFirstTick: boolean) => {
     // request id?
-    requestId = undefined;
+    setRequestId(undefined);
 
     const scrollDiff = {
       x: scrollValue.x - window.scrollX,
@@ -114,7 +107,12 @@ function MaskHoverItem() {
       coordinates['y'].current = mousePos.y - (scrollDiff.y + rect.top);
     }
 
-    // if first tick
+    // If it's the first animation tick, set the
+    // previous values to be the same as the current ones
+    if (isFirstTick) {
+      coordinates['x'].previous = coordinates['x'].current;
+      coordinates['y'].previous = coordinates['y'].current;
+    }
 
     for (const key in coordinates) {
       coordinates[key as keyof typeof coordinates].previous = lerp(
@@ -124,14 +122,12 @@ function MaskHoverItem() {
       );
     }
 
-    context.setCoordinates?.();
+    console.log(coordinates);
+
+    context.setCoordinates?.(coordinates['x'].previous, coordinates['y'].previous);
 
     loopRender();
   };
-
-  // imgRef.current?.addEventListener('mouseenter', (event) => {
-  //   context.myAnimation?.();
-  // });
 
   return (
     <div ref={containerRef}>

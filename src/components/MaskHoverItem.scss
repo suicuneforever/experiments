@@ -8,6 +8,11 @@
   place-items: center;
   --x: 0px;
   --y: 0px;
+
+  svg {
+    position: relative;
+    z-index: 1;
+  }
 }
 
 .grid__item-img::after {
