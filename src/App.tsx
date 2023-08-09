@@ -1,7 +1,5 @@
 import './App.css';
 import { motion, useScroll } from 'framer-motion';
-import { ReactComponent as Test } from './assets/test.svg';
-import { getMousePos } from './utils';
 import MaskHoverItem from './components/MaskHoverItem';
 
 function App() {
