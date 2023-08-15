@@ -2,7 +2,7 @@ import { useLayoutEffect, useRef, useState } from 'react';
 import { getMousePos, getRandomString, lerp, useGsapContext } from '../utils';
 import './MaskHoverItem.scss';
 import { gsap } from 'gsap';
-import { ReactComponent as Test } from '../assets/test.svg';
+import { ReactComponent as GMLogo } from '../assets/gmLogo.svg';
 
 let mousePos = { x: 0, y: 0 };
 
@@ -44,8 +44,6 @@ function MaskHoverItem() {
     });
 
     context.add('setCoordinates', (xCoord: number, yCoord: number) => {
-      console.log('previous x ', coordinates['x'].previous);
-      console.log('previous y ', coordinates['y'].previous);
       gsap.set(imgRef.current, {
         '--x': xCoord,
         '--y': yCoord,
@@ -114,8 +112,6 @@ function MaskHoverItem() {
       );
     }
 
-    console.log(coordinates);
-
     context.setCoordinates?.(coordinates['x'].previous, coordinates['y'].previous);
 
     loopRender();
@@ -134,7 +130,7 @@ function MaskHoverItem() {
           {randomString}
         </div>
         <svg width="40" height="40" viewBox="0 0 40 40" fill="#fff">
-          <Test />
+          <GMLogo />
         </svg>
       </a>
     </div>

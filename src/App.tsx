@@ -1,6 +1,7 @@
 import './App.css';
 import { motion, useScroll } from 'framer-motion';
 import MaskHoverItem from './components/MaskHoverItem';
+import SlicedImageItem from './components/SlicedImageItem';
 
 function App() {
   const { scrollYProgress } = useScroll();
@@ -8,19 +9,22 @@ function App() {
   return (
     <>
       <motion.div className="progress-bar" style={{ scaleX: scrollYProgress }} />
-      <div className="card">
-        <h1 className="gradient-text">GIANT MACHINES</h1>
+      <div>
+        {/* <h1 className="gradient-text">GIANT MACHINES</h1> */}
         <div className="grid">
           <div className="grid__item">
             {' '}
             <MaskHoverItem />
-            <p className="grid__item-label">
-              We designed and developed a visually appealing website for CodeCrafters, highlighting their coding
-              expertise.
-            </p>
-            <span className="grid__item-tag">Branding</span>
+          </div>
+          <div className="grid__item">
+            <SlicedImageItem
+              imgPath="img/img1.jpg"
+              title="Code CR-4519: Anomaly Detection in Array"
+              date="08/11/2023"
+            />
           </div>
         </div>
+
         <p>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
           magna aliqua. Aliquam nulla facilisi cras fermentum odio eu. Adipiscing elit pellentesque habitant morbi
