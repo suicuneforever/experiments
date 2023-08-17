@@ -1,7 +1,14 @@
 import { RefObject, useMemo } from 'react';
 import { gsap } from 'gsap';
 
-// Linear interpolation
+/* Liner Interpolation
+ * lerp(min, max, ratio)
+ * eg,
+ * lerp(20, 60, .5)) = 40
+ * lerp(-20, 60, .5)) = 20
+ * lerp(20, 60, .75)) = 50
+ * lerp(-20, -10, .1)) = -.19
+ */
 export const lerp = (a: number, b: number, n: number) => (1 - n) * a + n * b;
 
 // Gets the mouse position

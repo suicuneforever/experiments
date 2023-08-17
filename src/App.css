@@ -1,12 +1,17 @@
 #root {
-  max-width: 1280px;
+  /* max-width: 1280px; */
   margin: 0 auto;
-  padding: 2rem;
+  /* padding: 2rem; */
   text-align: center;
 }
 
-/* .card {
-  padding: 2em;
+/* .canvas-container {
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: -1;
+  width: 100vw;
+  height: 100vh;
 } */
 
 p {
@@ -100,6 +105,7 @@ p {
   grid-template-columns: 1fr 1fr 1fr;
   border: 1px solid #2a2b3a;
   gap: 1px;
+  margin-top: 300px;
 }
 
 .grid__item {

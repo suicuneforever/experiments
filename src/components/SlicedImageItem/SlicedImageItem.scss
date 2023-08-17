@@ -3,13 +3,14 @@
   grid-template-rows: auto 1fr auto;
   cursor: pointer;
   position: relative;
-  min-height: 60vh;
   padding: 4vw;
   border-bottom: 1px solid var(--color-border);
   overflow: hidden;
   font-family: 'OCR A STD', monospace;
   text-transform: uppercase;
   text-align: left;
+  height: 300px;
+  width: 300px;
 }
 
 .card__img,

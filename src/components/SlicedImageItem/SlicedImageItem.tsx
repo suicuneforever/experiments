@@ -2,9 +2,6 @@ import { ReactElement, useLayoutEffect, useRef, useState } from 'react';
 import './SlicedImageItem.scss';
 import { lettersAndSymbols, useGsapContext } from '../../utils';
 import { gsap } from 'gsap';
-import 'splitting/dist/splitting.css';
-import 'splitting/dist/splitting-cells.css';
-import Splitting from 'splitting';
 
 type ContextFunctions = {
   setOrientation: () => void;
@@ -40,8 +37,6 @@ function SlicedImageItem({ imgPath, title, date, orientation = 'vertical', slice
   const chars = {
     title: title,
   };
-
-  Splitting();
 
   useLayoutEffect(() => {
     return () => context.revert();
@@ -237,7 +232,7 @@ function SlicedImageItem({ imgPath, title, date, orientation = 'vertical', slice
             );
           })}
         </span>
-        <a href="#" className="card__link" data-splitting>
+        <a href="#" className="card__link">
           Read the article
         </a>
       </div>
