@@ -1,10 +1,6 @@
 import './App.css';
-import { motion, useScroll } from 'framer-motion';
 import MaskHoverItem from './components/MaskHoverItem';
 import SlicedImageItem from './components/SlicedImageItem';
-import { Canvas } from '@react-three/fiber';
-import Box from './components/Box';
-import { Scroll, ScrollControls } from '@react-three/drei';
 
 function App() {
   // const { scrollYProgress } = useScroll();
@@ -13,7 +9,7 @@ function App() {
     <>
       {/* <motion.div className="progress-bar" style={{ scaleX: scrollYProgress }} />    */}
 
-      <div className="canvas-container">
+      {/* <div className="canvas-container">
         <Canvas>
           <ambientLight intensity={0.1} />
           <directionalLight color="red" position={[0, 0, 5]} />
@@ -39,22 +35,14 @@ function App() {
             </Scroll>
           </ScrollControls>
         </Canvas>
-      </div>
-
-      {/* <div>
-        <div className="grid">
-          <div className="grid__item">
-            <MaskHoverItem />
-          </div>
-          <div className="grid__item">
-            <SlicedImageItem
-              imgPath="img/img1.jpg"
-              title="Code CR-4519: Anomaly Detection in Array"
-              date="08/11/2023"
-            />
-          </div>
-        </div>
       </div> */}
+
+      <div>
+        <div className="grid">
+          <MaskHoverItem />
+          <SlicedImageItem imgPath="img/img1.jpg" title="Code CR-4519: Anomaly Detection in Array" date="08/11/2023" />
+        </div>
+      </div>
     </>
   );
 }

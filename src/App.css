@@ -3,20 +3,16 @@
   margin: 0 auto;
   /* padding: 2rem; */
   text-align: center;
+  background-color: rgb(23, 24, 37);
 }
 
-/* .canvas-container {
+.canvas-container {
   position: fixed;
   left: 0;
   top: 0;
   z-index: -1;
   width: 100vw;
   height: 100vh;
-} */
-
-p {
-  font-size: 20px;
-  margin-bottom: 200px;
 }
 
 /* scroll tracking */
@@ -70,46 +66,25 @@ p {
   animation: rainbow-text-simple-animation 0.5s ease-in forwards;
 }
 
-/* Move the background and make it smaller. */
-/* Animation shown when entering the page and after the hover animation. */
-@keyframes rainbow-text-simple-animation-rev {
-  0% {
-    background-size: 650%;
-  }
-  40% {
-    background-size: 650%;
-  }
-  100% {
-    background-size: 100%;
-  }
-}
-
-/* Move the background and make it larger. */
-/* Animation shown when hovering over the text. */
-@keyframes rainbow-text-simple-animation {
-  0% {
-    background-size: 100%;
-  }
-  80% {
-    background-size: 650%;
-  }
-  100% {
-    background-size: 650%;
-  }
-}
-
 /* grid */
 
 .grid {
   display: grid;
+  grid-auto-rows: 1fr;
+  grid-auto-columns: 1fr;
   grid-template-columns: 1fr 1fr 1fr;
-  border: 1px solid #2a2b3a;
-  gap: 1px;
-  margin-top: 300px;
+  padding: 20px;
 }
 
-.grid__item {
+.grid :nth-child(even) {
+  grid-row-start: 2;
+  grid-column-start: 3;
+  /* grid-column-end: 4;
+  grid-row-end: 3; */
+}
+
+/* .grid__item {
   display: grid;
   gap: 1.5rem;
   align-content: start;
-}
+} */

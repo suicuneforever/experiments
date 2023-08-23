@@ -1,4 +1,5 @@
-import { ReactElement, useLayoutEffect, useRef, useState } from 'react';
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
+import { useLayoutEffect, useRef } from 'react';
 import './SlicedImageItem.scss';
 import { lettersAndSymbols, useGsapContext } from '../../utils';
 import { gsap } from 'gsap';
@@ -7,7 +8,7 @@ type ContextFunctions = {
   setOrientation: () => void;
   mouseEnter: () => void;
   mouseLeave: () => void;
-  shuffleChars: () => void;
+  shuffleChars: (elements: HTMLCollection) => void;
 };
 
 type SlicedImageItemProps = {
@@ -18,12 +19,14 @@ type SlicedImageItemProps = {
   slicesTotal?: number;
 };
 
+const ARTICLE_TEXT = 'Read the article';
+
 function SlicedImageItem({ imgPath, title, date, orientation = 'vertical', slicesTotal = 5 }: SlicedImageItemProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const cardImgRef = useRef<HTMLDivElement>(null);
-  const dateRef = useRef<HTMLSpanElement>(null);
-  const titleRef = useRef<HTMLHeadingElement>(null);
-  const letterRef = useRef<HTMLSpanElement>(null);
+  const dateRef = useRef<HTMLSpanElement>(null!);
+  const titleRef = useRef<HTMLHeadingElement>(null!);
+  const articleRef = useRef<HTMLAnchorElement>(null!);
   //TODO
   //   const context: gsap.Context = gsap.context(() => {}, containerRef);
   const context = useGsapContext<HTMLDivElement, ContextFunctions>(containerRef);
@@ -34,9 +37,6 @@ function SlicedImageItem({ imgPath, title, date, orientation = 'vertical', slice
     },
   };
   const isVeritcal = orientation === 'vertical';
-  const chars = {
-    title: title,
-  };
 
   useLayoutEffect(() => {
     return () => context.revert();
@@ -137,31 +137,31 @@ function SlicedImageItem({ imgPath, title, date, orientation = 'vertical', slice
 
     context.add(
       'shuffleChars',
-      (char: Element, index: number) => {
-        const chars = dateRef.current?.children;
-        // const originalChar = char.innerHTML;
-        // gsap.killTweensOf(char);
+      (elements: HTMLCollection) => {
+        const chars = elements;
 
         for (const char of chars ?? []) {
           const originalChar = char.innerHTML;
-          gsap.killTweensOf(char);
-          gsap.fromTo(
-            char,
-            {
-              opacity: 0,
-            },
-            {
-              duration: 0.03,
-              innerHTML: () => lettersAndSymbols[Math.floor(Math.random() * lettersAndSymbols.length)],
-              repeat: 3,
-              repeatRefresh: true,
-              opacity: 1,
-              repeatDelay: 0.05,
-              onComplete: () => {
-                gsap.set(char, { innerHTML: originalChar, delay: 0.03 });
+          if (originalChar != ' ') {
+            gsap.killTweensOf(char);
+            gsap.fromTo(
+              char,
+              {
+                opacity: 0,
               },
-            },
-          );
+              {
+                duration: 0.03,
+                innerHTML: () => lettersAndSymbols[Math.floor(Math.random() * lettersAndSymbols.length)],
+                repeat: 3,
+                repeatRefresh: true,
+                opacity: 1,
+                repeatDelay: 0.05,
+                onComplete: () => {
+                  gsap.set(char, { innerHTML: originalChar, delay: 0.03 });
+                },
+              },
+            );
+          }
         }
       },
       containerRef,
@@ -201,7 +201,9 @@ function SlicedImageItem({ imgPath, title, date, orientation = 'vertical', slice
 
   const handleMouseEnter = () => {
     context.mouseEnter?.();
-    context.shuffleChars?.();
+    context.shuffleChars?.(titleRef.current.children);
+    context.shuffleChars?.(dateRef.current.children);
+    context.shuffleChars?.(articleRef.current.children);
   };
 
   const handleMouseLeave = () => {
@@ -214,27 +216,35 @@ function SlicedImageItem({ imgPath, title, date, orientation = 'vertical', slice
         <div className="card__img" ref={cardImgRef} style={{ backgroundImage: `url('${imgPath}')` }}>
           {renderCardSlices()}
         </div>
-        <span className="card__date" ref={dateRef}>
-          {date.split('').map((char: string, index: number) => {
-            return (
-              <span className="card__title-letter" key={index}>
-                {char}
-              </span>
-            );
-          })}
-        </span>
-        <span className="card__title" ref={titleRef}>
-          {title.split('').map((char: string, index: number) => {
-            return (
-              <span className="card__title-letter" key={index}>
-                {char}
-              </span>
-            );
-          })}
-        </span>
-        <a href="#" className="card__link">
-          Read the article
-        </a>
+        <div className="text">
+          <span className="card__date" ref={dateRef}>
+            {date.split('').map((char: string, index: number) => {
+              return (
+                <span className="card__title-letter" key={index}>
+                  {char}
+                </span>
+              );
+            })}
+          </span>
+          <span className="card__title" ref={titleRef}>
+            {title.split('').map((char: string, index: number) => {
+              return (
+                <span className="card__title-letter" key={index}>
+                  {char}
+                </span>
+              );
+            })}
+          </span>
+          <a href="#" className="card__link" ref={articleRef}>
+            {ARTICLE_TEXT.split('').map((char: string, index: number) => {
+              return (
+                <span className="card__title-letter" key={index}>
+                  {char}
+                </span>
+              );
+            })}
+          </a>
+        </div>
       </div>
     </div>
   );

@@ -1,12 +1,8 @@
-import { useScroll } from '@react-three/drei';
-import { useFrame, useThree } from '@react-three/fiber';
+import { useFrame } from '@react-three/fiber';
 import { useRef } from 'react';
-import { Group, Mesh } from 'three';
-const rsqw = (t: number, delta = 0.1, a = 1, f = 1 / (2 * Math.PI)) =>
-  (a / Math.atan(1 / delta)) * Math.atan(Math.sin(2 * Math.PI * t * f) / delta);
+import { Mesh } from 'three';
 
 function Box() {
-  const scroll = useScroll();
   const myMesh = useRef<Mesh>(null!);
   useFrame(({ clock }, delta) => {
     const time = clock.getElapsedTime();
