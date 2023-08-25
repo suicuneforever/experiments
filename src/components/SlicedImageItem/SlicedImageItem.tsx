@@ -211,7 +211,7 @@ function SlicedImageItem({ imgPath, title, date, orientation = 'vertical', slice
   };
 
   return (
-    <div ref={containerRef}>
+    <div className="container" ref={containerRef}>
       <div className="card" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
         <div className="card__img" ref={cardImgRef} style={{ backgroundImage: `url('${imgPath}')` }}>
           {renderCardSlices()}

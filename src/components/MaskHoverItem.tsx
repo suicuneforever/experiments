@@ -118,7 +118,7 @@ function MaskHoverItem() {
   };
 
   return (
-    <div ref={containerRef}>
+    <div ref={containerRef} className="container">
       <a
         className="grid__item-img"
         ref={imgRef}

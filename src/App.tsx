@@ -1,47 +1,34 @@
-import './App.css';
+import { ScrollControls, Scroll, OrbitControls, PerspectiveCamera } from '@react-three/drei';
+import { Canvas } from '@react-three/fiber';
+import './App.scss';
 import MaskHoverItem from './components/MaskHoverItem';
 import SlicedImageItem from './components/SlicedImageItem';
+import { GMLogo } from './components/GMLogo/GMLogo';
 
 function App() {
-  // const { scrollYProgress } = useScroll();
-
   return (
     <>
-      {/* <motion.div className="progress-bar" style={{ scaleX: scrollYProgress }} />    */}
-
-      {/* <div className="canvas-container">
-        <Canvas>
-          <ambientLight intensity={0.1} />
-          <directionalLight color="red" position={[0, 0, 5]} />
-          <ScrollControls pages={5}>
-            <Box />
+      <div className="app">
+        <Canvas shadows>
+          <ambientLight intensity={2.5} />
+          <directionalLight color="#ffd86b" intensity={1.5} position={[-44.7, 49.92, -44.94]} />
+          <OrbitControls enableZoom={false} />
+          <PerspectiveCamera makeDefault position={[-8, 2.5, 2.6]} />
+          <ScrollControls pages={4}>
+            <GMLogo />
             <Scroll></Scroll>
             <Scroll html>
-              <h1
-                style={{
-                  position: 'absolute',
-                  top: `100vh`,
-                  left: '60vw',
-                  fontSize: '25em',
-                  transform: `translate3d(0,-100%,0)`,
-                }}
-              >
-                all
-              </h1>
-              <h1 style={{ position: 'absolute', top: '180vh', left: '10vw' }}>hail</h1>
-              <h1 style={{ position: 'absolute', top: '260vh', left: '90vw' }}>thee,</h1>
-              <h1 style={{ position: 'absolute', top: '350vh', left: '10vw' }}>thoth</h1>
-              <h1 style={{ position: 'absolute', top: '450vh', left: '90vw' }}></h1>
+              <div className="grid">
+                <div className="item mask">
+                  <MaskHoverItem />
+                </div>
+                <div className="item sliced">
+                  <SlicedImageItem imgPath="img/img1.png" title="Giant Machines is very cool" date="08/11/2023" />
+                </div>
+              </div>
             </Scroll>
           </ScrollControls>
         </Canvas>
-      </div> */}
-
-      <div>
-        <div className="grid">
-          <MaskHoverItem />
-          <SlicedImageItem imgPath="img/img1.jpg" title="Code CR-4519: Anomaly Detection in Array" date="08/11/2023" />
-        </div>
       </div>
     </>
   );
