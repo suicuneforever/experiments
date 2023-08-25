@@ -23,7 +23,7 @@ function App() {
                   <MaskHoverItem />
                 </div>
                 <div className="item sliced">
-                  <SlicedImageItem imgPath="img/img1.png" title="Giant Machines is very cool" date="08/11/2023" />
+                  <SlicedImageItem imgPath="img1.png" title="Giant Machines is very cool" date="08/11/2023" />
                 </div>
               </div>
             </Scroll>
