@@ -4,7 +4,7 @@ Command: npx gltfjsx@6.2.12 public/gmlogo.glb --types
 */
 
 import * as THREE from 'three';
-import React, { useLayoutEffect, useRef } from 'react';
+import { useLayoutEffect, useRef } from 'react';
 import { useGLTF, useScroll } from '@react-three/drei';
 import { GLTF } from 'three-stdlib';
 import { gsap } from 'gsap';
