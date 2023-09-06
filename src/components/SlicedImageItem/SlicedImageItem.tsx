@@ -1,15 +1,9 @@
+/* eslint-disable @typescript-eslint/no-empty-function */
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { useLayoutEffect, useRef } from 'react';
 import './SlicedImageItem.scss';
-import { lettersAndSymbols, useGsapContext } from '../../utils';
+import { lettersAndSymbols } from '../../utils';
 import { gsap } from 'gsap';
-
-type ContextFunctions = {
-  setOrientation: () => void;
-  mouseEnter: () => void;
-  mouseLeave: () => void;
-  shuffleChars: (elements: HTMLCollection) => void;
-};
 
 type SlicedImageItemProps = {
   imgPath: string;
@@ -27,16 +21,14 @@ function SlicedImageItem({ imgPath, title, date, orientation = 'vertical', slice
   const dateRef = useRef<HTMLSpanElement>(null!);
   const titleRef = useRef<HTMLHeadingElement>(null!);
   const articleRef = useRef<HTMLAnchorElement>(null!);
-  //TODO
-  //   const context: gsap.Context = gsap.context(() => {}, containerRef);
-  const context = useGsapContext<HTMLDivElement, ContextFunctions>(containerRef);
+  const context: gsap.Context = gsap.context(() => {}, containerRef);
+  const isVeritcal = orientation === 'vertical';
   const settings = {
     animation: {
       duration: 0.5,
       ease: 'power3.inOut',
     },
   };
-  const isVeritcal = orientation === 'vertical';
 
   useLayoutEffect(() => {
     return () => context.revert();
@@ -200,14 +192,14 @@ function SlicedImageItem({ imgPath, title, date, orientation = 'vertical', slice
   };
 
   const handleMouseEnter = () => {
-    context.mouseEnter?.();
-    context.shuffleChars?.(titleRef.current.children);
-    context.shuffleChars?.(dateRef.current.children);
-    context.shuffleChars?.(articleRef.current.children);
+    context.mouseEnter();
+    context.shuffleChars(titleRef.current.children);
+    context.shuffleChars(dateRef.current.children);
+    context.shuffleChars(articleRef.current.children);
   };
 
   const handleMouseLeave = () => {
-    context.mouseLeave?.();
+    context.mouseLeave();
   };
 
   return (

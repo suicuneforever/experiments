@@ -1,8 +1,10 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
+/* eslint-disable @typescript-eslint/no-empty-function */
 import { useLayoutEffect, useRef, useState } from 'react';
-import { getMousePos, getRandomString, lerp, useGsapContext } from '../utils';
+import { getMousePos, getRandomString, lerp } from '../../utils';
 import './MaskHoverItem.scss';
 import { gsap } from 'gsap';
-import { ReactComponent as GMLogo } from '../assets/gmLogo.svg';
+import { ReactComponent as GMLogo } from '../../assets/gmLogo.svg';
 
 let mousePos = { x: 0, y: 0 };
 
@@ -10,17 +12,11 @@ window.addEventListener('mousemove', (event) => {
   mousePos = getMousePos(event);
 });
 
-type ContextFunctions = {
-  mouseEnter: () => void;
-  mouseLeave: () => void;
-  setCoordinates: (xCoord: number, yCoord: number) => void;
-};
-
 function MaskHoverItem() {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const imgRef = useRef<HTMLAnchorElement>(null);
-  const decoRef = useRef<HTMLDivElement>(null);
-  const context = useGsapContext<HTMLDivElement, ContextFunctions>(containerRef);
+  const containerRef = useRef<HTMLDivElement>(null!);
+  const imgRef = useRef<HTMLAnchorElement>(null!);
+  const decoRef = useRef<HTMLDivElement>(null!);
+  const context: gsap.Context = gsap.context(() => {}, containerRef);
   const [randomString, setRandomString] = useState<string>(getRandomString(2000));
   const [requestId, setRequestId] = useState<number | undefined>(undefined);
   const coordinates = {
@@ -53,7 +49,7 @@ function MaskHoverItem() {
 
   const calculateSizePosition = () => {
     scrollValue = { x: window.scrollX, y: window.scrollY };
-    rect = imgRef.current?.getBoundingClientRect();
+    rect = imgRef.current.getBoundingClientRect();
   };
 
   const handleMouseMove = () => {
@@ -61,14 +57,14 @@ function MaskHoverItem() {
   };
 
   const handleMouseEnter = () => {
-    context.mouseEnter?.();
+    context.mouseEnter();
     calculateSizePosition();
     loopRender(true);
   };
 
   const handleMouseLeave = () => {
     stopRender();
-    context.mouseLeave?.();
+    context.mouseLeave();
   };
 
   const loopRender = (isFirstTick = false) => {
@@ -112,7 +108,7 @@ function MaskHoverItem() {
       );
     }
 
-    context.setCoordinates?.(coordinates['x'].previous, coordinates['y'].previous);
+    context.setCoordinates(coordinates['x'].previous, coordinates['y'].previous);
 
     loopRender();
   };
