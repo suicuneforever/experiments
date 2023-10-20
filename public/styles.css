@@ -1,0 +1,12 @@
+@import url('/fonts.css');
+
+body {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 400;
+  font-display: block;
+  overscroll-behavior: contain;
+  font-size: max(0.75rem, 0.8101851852vw);
+
+  color: #6e6bcd;
+  background: #ecedef;
+}

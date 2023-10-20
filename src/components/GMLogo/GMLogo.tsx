@@ -5,7 +5,7 @@ Command: npx gltfjsx@6.2.12 public/gmlogo.glb --types
 */
 
 import { useLayoutEffect, useRef } from 'react';
-import { useGLTF, useScroll } from '@react-three/drei';
+import { Float, useGLTF, useScroll } from '@react-three/drei';
 import { GLTF } from 'three-stdlib';
 import { gsap } from 'gsap';
 import { useFrame } from '@react-three/fiber';
@@ -36,32 +36,32 @@ export function GMLogo(props: JSX.IntrinsicElements['group']) {
   const timeline = useRef<GSAPTimeline>(null!);
   const scroll = useScroll();
 
-  useFrame(({ clock }) => {
-    const time = clock.getElapsedTime();
-    group.current.position.y = Math.cos(time) * 0.2;
+  // useFrame(({ clock }) => {
+  //   const time = clock.getElapsedTime();
+  //   group.current.position.y = Math.cos(time) * 0.2;
 
-    timeline.current.seek(scroll.offset * timeline.current.duration());
-  });
+  //   timeline.current.seek(scroll.offset * timeline.current.duration());
+  // });
 
-  useLayoutEffect(() => {
-    timeline.current = gsap.timeline({ defaults: { duration: 2, ease: 'power1.inOut' } });
+  // useLayoutEffect(() => {
+  //   timeline.current = gsap.timeline({ defaults: { duration: 2, ease: 'power1.inOut' } });
 
-    timeline.current
-      .to(yellow.current.position, { x: -0.951, y: 2.356, z: -0.084 }, 1)
-      .to(green.current.position, { x: 2.324, y: 0.302, z: -5.266 }, 1)
-      .to(blue.current.position, { x: -2.231, y: -0.202, z: -0.237 }, 1)
-      .to(pink.current.position, { x: -1.401, y: 0.025, z: 1.631 }, 1)
+  //   timeline.current
+  //     .to(yellow.current.position, { x: -0.951, y: 2.356, z: -0.084 }, 1)
+  //     .to(green.current.position, { x: 2.324, y: 0.302, z: -5.266 }, 1)
+  //     .to(blue.current.position, { x: -2.231, y: -0.202, z: -0.237 }, 1)
+  //     .to(pink.current.position, { x: -1.401, y: 0.025, z: 1.631 }, 1)
 
-      .to(yellow.current.position, { x: -0.198, y: 1.494, z: -0.737 }, 5)
-      .to(green.current.position, { x: -0.198, y: 0.994, z: -0.737 }, 5)
-      .to(blue.current.position, { x: -0.198, y: 0.994, z: -0.237 }, 5)
-      .to(pink.current.position, { x: -0.198, y: 0.494, z: -0.237 }, 5)
+  //     .to(yellow.current.position, { x: -0.198, y: 1.494, z: -0.737 }, 5)
+  //     .to(green.current.position, { x: -0.198, y: 0.994, z: -0.737 }, 5)
+  //     .to(blue.current.position, { x: -0.198, y: 0.994, z: -0.237 }, 5)
+  //     .to(pink.current.position, { x: -0.198, y: 0.494, z: -0.237 }, 5)
 
-      .to(group.current.rotation, { y: 0.25, z: -0.1 }, 6);
-  }, []);
+  //     .to(group.current.rotation, { y: 0.25, z: -0.1 }, 6);
+  // }, []);
 
   return (
-    <group ref={group} {...props} dispose={null} position={[-0.198, 0.494, 0.5]}>
+    <group ref={group} {...props} dispose={null} scale={100}>
       <mesh
         ref={yellow}
         geometry={nodes.yellow.geometry}

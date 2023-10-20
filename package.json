@@ -10,15 +10,16 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@14islands/r3f-scroll-rig": "^8.12.3",
     "@react-three/drei": "^9.80.3",
     "@react-three/fiber": "^8.13.6",
     "@types/three": "^0.155.0",
     "framer-motion": "^10.15.0",
     "gltfjsx": "^6.2.11",
-    "read-pkg-up": "^10.0.0",
     "gsap": "^3.12.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "read-pkg-up": "^10.0.0",
     "sass": "^1.64.2",
     "scss": "^0.2.4",
     "splitting": "^1.0.6",
